@@ -23,6 +23,9 @@
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.4",
         "admin-lte": "^3.2.0",
-        "autoprefixer": "10.4.5"
+        "autoprefixer": "10.4.5",
+        "vue-axios": "^3.4.1",
+        "vue-router": "^4.0.16",
+        "vue-template-compiler": "^2.6.14"
     }
 }
