@@ -8,14 +8,27 @@ require('./bootstrap');
 
 window.Vue = require('vue').default;
 import VueRouter from 'vue-router';
+//form validation
+import Form from 'vform'
+import {
+    Button,
+    HasError,
+    AlertError,
+    AlertErrors,
+    AlertSuccess
+  } from 'vform/src/components/bootstrap5'
+window.Form = Form;
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
+Vue.component(Button.name, Button)
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
+Vue.component(AlertErrors.name, AlertErrors)
+Vue.component(AlertSuccess.name, AlertSuccess)
+
+//sweetalert
+import Swal from 'sweetalert2';
+
+window.Swal = Swal;
 import { routes } from './routes/route';
 
 const router = new VueRouter({
