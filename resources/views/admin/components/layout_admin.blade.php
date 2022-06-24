@@ -255,7 +255,7 @@
 
             <!-- Main content -->
             <section class="content">
-                <example-component></example-component>
+                <router-view></router-view>
             </section>
             <!-- /.content -->
         </div>
