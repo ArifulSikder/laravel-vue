@@ -28,6 +28,7 @@
         "admin-lte": "^3.2.0",
         "sweetalert2": "^11.4.18",
         "vform": "^2.1.2",
-        "vue-router": "^3.5.4"
+        "vue-router": "^3.5.4",
+        "vuex": "^3.6.2"
     }
 }

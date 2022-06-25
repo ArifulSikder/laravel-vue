@@ -61,7 +61,7 @@
                             </div>
                             <!-- /.card -->
                         </div>
-                        <!-- /.col -->
+                        <h1>{{something}}</h1>
                         </div>
                     </div><!-- /.container-fluid -->
             </section>
@@ -70,8 +70,35 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
     name: 'Categories',
+
+    data() {
+        return {
+            
+        }
+    },
+    computed:{
+        something(){
+            return this.$store.getters.test;
+        }
+    },
+
+    methods: {
+        getCategory: function(){
+          
+        }
+    },
+    created(){
+    axios.get('/index-category').then(success=>{
+                    console.log(success);
+                }).catch(error=>{
+                    console.log(error);
+                });
+    },
+    mounted(){
+    }
 }
 </script>
 

@@ -29,14 +29,32 @@ Vue.component(AlertSuccess.name, AlertSuccess)
 import Swal from 'sweetalert2';
 
 window.Swal = Swal;
+//routes
 import { routes } from './routes/route';
-
 const router = new VueRouter({
     mode: 'history',
     routes
-})
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+});
+
+//vuex
+import Vuex from 'vuex'
+
+window.Vuex = Vuex;
+Vue.use(Vuex)
+
+const store = new Vuex.Store({
+  state: {
+    count: 2343
+  },
+  getters: {
+    test: state => {
+      return state.count;
+    }
+  },
+  mutations: {
+  }
+});
+
 Vue.use(VueRouter)
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
@@ -50,5 +68,6 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#content',
-    router
+    router,
+    store
 });
