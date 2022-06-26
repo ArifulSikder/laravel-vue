@@ -32,7 +32,7 @@ window.Swal = Swal;
 //routes
 import { routes } from './routes/route';
 const router = new VueRouter({
-    mode: 'history',
+    // mode: 'history',
     routes
 });
 
@@ -44,14 +44,28 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    count: 2343
+    categoryData: []
   },
   getters: {
     test: state => {
-      return state.count;
+
+      return state.categoryData;
+    }
+  },
+  actions:{
+    categoryData(data){
+        axios.get('/index-category').then(success=>{
+            console.log(success.data.categories);
+            data.commit('categoryData', success.data.categories);
+        }).catch(error=>{
+            console.log(error);
+        });
     }
   },
   mutations: {
+    categoryData(state, data){
+        return state.categoryData = data;
+    }
   }
 });
 

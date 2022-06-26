@@ -5534,28 +5534,48 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'Categories',
   data: function data() {
-    return {};
+    return {
+      data: []
+    };
   },
   computed: {
-    something: function something() {
+    categories: function categories() {
       return this.$store.getters.test;
     }
   },
   methods: {
-    getCategory: function getCategory() {}
+    statusName: function statusName(status) {
+      var data = {
+        0: "Inactive",
+        1: "Active"
+      };
+      return data[status];
+    },
+    statusColor: function statusColor(status) {
+      var data = {
+        0: "badge-danger",
+        1: "badge-success"
+      };
+      return data[status];
+    }
   },
-  created: function created() {
-    axios__WEBPACK_IMPORTED_MODULE_0___default().get('/index-category').then(function (success) {
-      console.log(success);
-    })["catch"](function (error) {
-      console.log(error);
-    });
-  },
-  mounted: function mounted() {}
+  created: function created() {},
+  mounted: function mounted() {
+    this.$store.dispatch('categoryData'); // const category = this.data;
+    // axios.get('/index-category').then(success=>{
+    //     console.log(success);
+    //     category[success.category] ;
+    // }).catch(error=>{
+    //     console.log(error);
+    // });
+  }
 });
 
 /***/ }),
@@ -5702,7 +5722,7 @@ window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_2___default()); //routes
 
 
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_4__["default"]({
-  mode: 'history',
+  // mode: 'history',
   routes: _routes_route__WEBPACK_IMPORTED_MODULE_3__.routes
 }); //vuex
 
@@ -5711,14 +5731,28 @@ window.Vuex = vuex__WEBPACK_IMPORTED_MODULE_5__["default"];
 Vue.use(vuex__WEBPACK_IMPORTED_MODULE_5__["default"]);
 var store = new vuex__WEBPACK_IMPORTED_MODULE_5__["default"].Store({
   state: {
-    count: 2343
+    categoryData: []
   },
   getters: {
     test: function test(state) {
-      return state.count;
+      return state.categoryData;
     }
   },
-  mutations: {}
+  actions: {
+    categoryData: function categoryData(data) {
+      axios.get('/index-category').then(function (success) {
+        console.log(success.data.categories);
+        data.commit('categoryData', success.data.categories);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
+  },
+  mutations: {
+    categoryData: function categoryData(state, data) {
+      return state.categoryData = data;
+    }
+  }
 });
 Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_4__["default"]);
 Vue.component('example-component', (__webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"])); // Vue.component('home', require('./components/backend/Home.vue').default);
@@ -44509,7 +44543,7 @@ var render = function () {
     _c("section", { staticClass: "content" }, [
       _c("div", { staticClass: "container-fluid" }, [
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-6 offset-3" }, [
+          _c("div", { staticClass: "col-md-10 offset-1" }, [
             _c("div", { staticClass: "card" }, [
               _c(
                 "div",
@@ -44529,13 +44563,42 @@ var render = function () {
                 1
               ),
               _vm._v(" "),
-              _vm._m(1),
+              _c("div", { staticClass: "card-body" }, [
+                _c("table", { staticClass: "table table-bordered" }, [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.categories, function (category) {
+                      return _c("tr", [
+                        _c("td", [_vm._v(_vm._s(category.name))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "span",
+                            {
+                              staticClass: "badge",
+                              class: _vm.statusColor(category.status),
+                            },
+                            [_vm._v(_vm._s(_vm.statusName(category.status)))]
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(category.slug))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(category.created_at))]),
+                        _vm._v(" "),
+                        _vm._m(2, true),
+                      ])
+                    }),
+                    0
+                  ),
+                ]),
+              ]),
               _vm._v(" "),
-              _vm._m(2),
+              _vm._m(3),
             ]),
           ]),
-          _vm._v(" "),
-          _c("h1", [_vm._v(_vm._s(_vm.something))]),
         ]),
       ]),
     ]),
@@ -44570,34 +44633,30 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body" }, [
-      _c("table", { staticClass: "table table-bordered" }, [
-        _c("thead", [
-          _c("tr", [
-            _c("th", { staticStyle: { width: "10px" } }, [_vm._v("Name")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Status")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Action")]),
-          ]),
-        ]),
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { staticStyle: { width: "10px" } }, [_vm._v("Name")]),
         _vm._v(" "),
-        _c("tbody", [
-          _c("tr", [
-            _c("td", [_vm._v("1.")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Update software")]),
-            _vm._v(" "),
-            _c("td", [
-              _c("div", { staticClass: "progress progress-xs" }, [
-                _c("div", {
-                  staticClass: "progress-bar progress-bar-danger",
-                  staticStyle: { width: "55%" },
-                }),
-              ]),
-            ]),
-          ]),
-        ]),
+        _c("th", [_vm._v("Status")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Slug")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Created")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Action")]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("div", { staticClass: "progress progress-xs" }, [
+        _c("div", {
+          staticClass: "progress-bar progress-bar-danger",
+          staticStyle: { width: "55%" },
+        }),
       ]),
     ])
   },

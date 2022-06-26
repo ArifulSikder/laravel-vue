@@ -19,7 +19,7 @@
             <section class="content">
                      <div class="container-fluid">
                         <div class="row">
-                        <div class="col-md-6 offset-3">
+                        <div class="col-md-10 offset-1">
                             <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Category</h3>
@@ -32,13 +32,17 @@
                                     <tr>
                                     <th style="width: 10px">Name</th>
                                     <th>Status</th>
+                                    <th>Slug</th>
+                                    <th>Created</th>
                                     <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                    <td>1.</td>
-                                    <td>Update software</td>
+                                    <tr v-for="category in categories">
+                                    <td>{{category.name}}</td>
+                                    <td><span class="badge" :class="statusColor(category.status)">{{statusName(category.status)}}</span></td>
+                                    <td>{{category.slug}}</td>
+                                    <td>{{category.created_at}}</td>
                                     <td>
                                         <div class="progress progress-xs">
                                         <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
@@ -61,7 +65,6 @@
                             </div>
                             <!-- /.card -->
                         </div>
-                        <h1>{{something}}</h1>
                         </div>
                     </div><!-- /.container-fluid -->
             </section>
@@ -76,28 +79,39 @@ export default {
 
     data() {
         return {
-            
+          data: [],
         }
     },
     computed:{
-        something(){
+        categories(){
             return this.$store.getters.test;
         }
     },
 
     methods: {
-        getCategory: function(){
-          
+        statusName: function(status){
+            let data ={0: "Inactive", 1:"Active"}
+            return data[status];
+        },
+        statusColor:function(status){
+            let data ={0: "badge-danger", 1:"badge-success"}
+            return data[status];
+
         }
+
     },
     created(){
-    axios.get('/index-category').then(success=>{
-                    console.log(success);
-                }).catch(error=>{
-                    console.log(error);
-                });
+
     },
     mounted(){
+        this.$store.dispatch('categoryData');
+        // const category = this.data;
+        // axios.get('/index-category').then(success=>{
+        //     console.log(success);
+        //     category[success.category] ;
+        // }).catch(error=>{
+        //     console.log(error);
+        // });
     }
 }
 </script>
