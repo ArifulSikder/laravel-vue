@@ -42,12 +42,16 @@
                                     <td>{{category.name}}</td>
                                     <td><span class="badge" :class="statusColor(category.status)">{{statusName(category.status)}}</span></td>
                                     <td>{{category.slug}}</td>
-                                    <td>{{category.created_at}}</td>
+                                    <td>{{category.created_at | time}}</td>
                                     <td>
-                                        <div class="progress progress-xs">
-                                        <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                        </div>
+                                        <button class="btn btn-success" @click="editData(category.id)">Edit</button>
+                                        <button class="btn btn-danger" @click="deleteData(category.id)">Delete</button>
                                     </td>
+                                    </tr>
+                                    <tr v-if="emptyData()">
+                                        <td colspan="7">
+                                            <h5 class="text-center text-danger">No Data Found!</h5>
+                                        </td>
                                     </tr>
                                 </tbody>
                                 </table>
@@ -97,6 +101,20 @@ export default {
             let data ={0: "badge-danger", 1:"badge-success"}
             return data[status];
 
+        },
+        emptyData: function(){
+            return this.categories.length<1;
+        },
+        editData:function(category_id){
+            alert(category_id);
+        },
+        deleteData:function(category_id){
+            axios.get('/delete-category/'+ category_id).then(success=>{
+                this.$store.dispatch('categoryData');
+            category[success.category] ;
+            }).catch(error=>{
+                console.log(error);
+            });
         }
 
     },

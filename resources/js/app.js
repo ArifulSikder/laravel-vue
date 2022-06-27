@@ -69,6 +69,13 @@ const store = new Vuex.Store({
   }
 });
 
+
+import  moment from 'moment';
+
+Vue.filter('time', (a) =>{
+    return moment().format('MMMM Do YYYY, h:mm:ss a');
+});
+
 Vue.use(VueRouter)
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);

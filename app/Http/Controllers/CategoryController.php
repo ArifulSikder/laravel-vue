@@ -28,4 +28,12 @@ class CategoryController extends Controller
 
         return response()->json(['status' => 'success', 'msg' => 'Your Form Submitted!']);
     }
+
+    function deleteCategory($category_id)
+    {
+        Category::findOrFail($category_id)->delete();
+        return response()->json([
+            'success' => 'Successfully deleted category!',
+        ], 200);
+    }
 }
