@@ -30,6 +30,7 @@
                                 <table class="table table-bordered">
                                 <thead>
                                     <tr>
+                                    <th style="width: 10px"><input type="checkbox"> </th>
                                     <th style="width: 10px">Name</th>
                                     <th>Status</th>
                                     <th>Slug</th>
@@ -39,12 +40,13 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="category in categories">
+                                        <td><input type="checkbox" :value="category.id" v-model="category_ids"> </td>
                                     <td>{{category.name}}</td>
                                     <td><span class="badge" :class="statusColor(category.status)">{{statusName(category.status)}}</span></td>
                                     <td>{{category.slug}}</td>
                                     <td>{{category.created_at | time}}</td>
                                     <td>
-                                        <button class="btn btn-success" @click="editData(category.id)">Edit</button>
+                                        <router-link class="btn btn-success" :to="`/edit-category/${category.id}`">Edit</router-link>
                                         <button class="btn btn-danger" @click="deleteData(category.id)">Delete</button>
                                     </td>
                                     </tr>
@@ -84,6 +86,7 @@ export default {
     data() {
         return {
           data: [],
+          category_ids: [],
         }
     },
     computed:{

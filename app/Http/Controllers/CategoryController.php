@@ -36,4 +36,9 @@ class CategoryController extends Controller
             'success' => 'Successfully deleted category!',
         ], 200);
     }
+
+    function editCategory($category_id)
+    {
+        return $category_id;
+    }
 }
