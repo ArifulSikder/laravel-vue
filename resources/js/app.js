@@ -55,7 +55,6 @@ const store = new Vuex.Store({
   actions:{
     categoryData(data){
         axios.get('/index-category').then(success=>{
-            console.log(success.data.categories);
             data.commit('categoryData', success.data.categories);
         }).catch(error=>{
             console.log(error);
@@ -71,10 +70,16 @@ const store = new Vuex.Store({
 
 
 import  moment from 'moment';
+import Vue from 'vue';
+import { subtract } from 'lodash';
 
 Vue.filter('time', (a) =>{
     return moment().format('MMMM Do YYYY, h:mm:ss a');
 });
+
+Vue.filter('subString', (content, length)=>{
+    return content.substring(0, length);
+})
 
 Vue.use(VueRouter)
 

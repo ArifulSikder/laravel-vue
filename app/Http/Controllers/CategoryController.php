@@ -17,7 +17,7 @@ class CategoryController extends Controller
     function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:categories',
             'status' => 'required',
         ]);
         Category::create([
@@ -39,6 +39,24 @@ class CategoryController extends Controller
 
     function editCategory($category_id)
     {
-        return $category_id;
+        $category = Category::findOrFail($category_id);
+        return response()->json([
+            'success' => $category,
+        ], 200);
+    }
+
+    function update(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'status' => 'required',
+        ]);
+        Category::findOrFail($request->id)->update([
+            'name' => $request->name,
+            'slug' => $request->name,
+            'status' => $request->status,
+        ]);
+
+        return response()->json(['status' => 'success', 'msg' => 'Your Form Updated!']);
     }
 }

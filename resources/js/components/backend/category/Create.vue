@@ -85,7 +85,7 @@ export default {
                 aboveForm.$router.push('/categories');
             })
             .catch(function(error){
-                console.log(error)
+                // console.log(error)
             });
         }
     },

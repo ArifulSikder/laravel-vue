@@ -41,7 +41,7 @@
                                 <tbody>
                                     <tr v-for="category in categories">
                                         <td><input type="checkbox" :value="category.id" v-model="category_ids"> </td>
-                                    <td>{{category.name}}</td>
+                                    <td>{{category.name | subString(2)}}</td>
                                     <td><span class="badge" :class="statusColor(category.status)">{{statusName(category.status)}}</span></td>
                                     <td>{{category.slug}}</td>
                                     <td>{{category.created_at | time}}</td>
@@ -114,9 +114,9 @@ export default {
         deleteData:function(category_id){
             axios.get('/delete-category/'+ category_id).then(success=>{
                 this.$store.dispatch('categoryData');
-            category[success.category] ;
+            category[success.category];
             }).catch(error=>{
-                console.log(error);
+                // console.log(error);
             });
         }
 

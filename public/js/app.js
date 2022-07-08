@@ -5585,8 +5585,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.$store.dispatch('categoryData');
 
         category[success.category];
-      })["catch"](function (error) {
-        console.log(error);
+      })["catch"](function (error) {// console.log(error);
       });
     }
   },
@@ -5697,8 +5696,7 @@ __webpack_require__.r(__webpack_exports__);
           text: 'msg'
         });
         aboveForm.$router.push('/categories');
-      })["catch"](function (error) {
-        console.log(error);
+      })["catch"](function (error) {// console.log(error)
       });
     }
   },
@@ -5789,15 +5787,30 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       form: new vform__WEBPACK_IMPORTED_MODULE_0__["default"]({
+        id: null,
         name: null,
-        status: 1
+        status: null
       })
     };
   },
   methods: {
     getCategory: function getCategory() {
+      var this_ = this;
       axios__WEBPACK_IMPORTED_MODULE_1___default().get('/edit-category/' + this.$route.params.id).then(function (success) {
-        console.log(success);
+        this_.form.fill(success.data.success);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    updateForm: function updateForm() {
+      var this_ = this;
+      this.form.post('/update-category').then(function (success) {
+        Swal.fire({
+          icon: 'success',
+          title: 'OK',
+          text: 'msg'
+        });
+        this_.$router.push('/categories');
       })["catch"](function (error) {
         console.log(error);
       });
@@ -5818,15 +5831,18 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.es.js");
 /* harmony import */ var vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vform/src/components/bootstrap5 */ "./node_modules/vform/src/components/bootstrap5/index.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _routes_route__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./routes/route */ "./resources/js/routes/route.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _routes_route__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./routes/route */ "./resources/js/routes/route.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_8__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -5840,25 +5856,25 @@ window.Vue = (__webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js
 
 
 window.Form = vform__WEBPACK_IMPORTED_MODULE_0__["default"];
-Vue.component(vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_1__.Button.name, vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_1__.Button);
-Vue.component(vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_1__.HasError.name, vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_1__.HasError);
-Vue.component(vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_1__.AlertError);
-Vue.component(vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_1__.AlertErrors.name, vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_1__.AlertErrors);
-Vue.component(vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_1__.AlertSuccess.name, vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_1__.AlertSuccess); //sweetalert
+vue__WEBPACK_IMPORTED_MODULE_2__["default"].component(vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_1__.Button.name, vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_1__.Button);
+vue__WEBPACK_IMPORTED_MODULE_2__["default"].component(vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_1__.HasError.name, vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_1__.HasError);
+vue__WEBPACK_IMPORTED_MODULE_2__["default"].component(vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_1__.AlertError);
+vue__WEBPACK_IMPORTED_MODULE_2__["default"].component(vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_1__.AlertErrors.name, vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_1__.AlertErrors);
+vue__WEBPACK_IMPORTED_MODULE_2__["default"].component(vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_1__.AlertSuccess.name, vform_src_components_bootstrap5__WEBPACK_IMPORTED_MODULE_1__.AlertSuccess); //sweetalert
 
 
-window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_2___default()); //routes
+window.Swal = (sweetalert2__WEBPACK_IMPORTED_MODULE_3___default()); //routes
 
 
-var router = new vue_router__WEBPACK_IMPORTED_MODULE_4__["default"]({
+var router = new vue_router__WEBPACK_IMPORTED_MODULE_5__["default"]({
   // mode: 'history',
-  routes: _routes_route__WEBPACK_IMPORTED_MODULE_3__.routes
+  routes: _routes_route__WEBPACK_IMPORTED_MODULE_4__.routes
 }); //vuex
 
 
-window.Vuex = vuex__WEBPACK_IMPORTED_MODULE_5__["default"];
-Vue.use(vuex__WEBPACK_IMPORTED_MODULE_5__["default"]);
-var store = new vuex__WEBPACK_IMPORTED_MODULE_5__["default"].Store({
+window.Vuex = vuex__WEBPACK_IMPORTED_MODULE_6__["default"];
+vue__WEBPACK_IMPORTED_MODULE_2__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_6__["default"]);
+var store = new vuex__WEBPACK_IMPORTED_MODULE_6__["default"].Store({
   state: {
     categoryData: []
   },
@@ -5870,7 +5886,6 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_5__["default"].Store({
   actions: {
     categoryData: function categoryData(data) {
       axios.get('/index-category').then(function (success) {
-        console.log(success.data.categories);
         data.commit('categoryData', success.data.categories);
       })["catch"](function (error) {
         console.log(error);
@@ -5884,11 +5899,16 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_5__["default"].Store({
   }
 });
 
-Vue.filter('time', function (a) {
-  return moment__WEBPACK_IMPORTED_MODULE_6___default()().format('MMMM Do YYYY, h:mm:ss a');
+
+
+vue__WEBPACK_IMPORTED_MODULE_2__["default"].filter('time', function (a) {
+  return moment__WEBPACK_IMPORTED_MODULE_7___default()().format('MMMM Do YYYY, h:mm:ss a');
 });
-Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_4__["default"]);
-Vue.component('example-component', (__webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"])); // Vue.component('home', require('./components/backend/Home.vue').default);
+vue__WEBPACK_IMPORTED_MODULE_2__["default"].filter('subString', function (content, length) {
+  return content.substring(0, length);
+});
+vue__WEBPACK_IMPORTED_MODULE_2__["default"].use(vue_router__WEBPACK_IMPORTED_MODULE_5__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_2__["default"].component('example-component', (__webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"])); // Vue.component('home', require('./components/backend/Home.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -5896,7 +5916,7 @@ Vue.component('example-component', (__webpack_require__(/*! ./components/Example
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-var app = new Vue({
+var app = new vue__WEBPACK_IMPORTED_MODULE_2__["default"]({
   el: '#content',
   router: router,
   store: store
@@ -66414,7 +66434,11 @@ var render = function () {
                             }),
                           ]),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(category.name))]),
+                          _c("td", [
+                            _vm._v(
+                              _vm._s(_vm._f("subString")(category.name, 2))
+                            ),
+                          ]),
                           _vm._v(" "),
                           _c("td", [
                             _c(
@@ -66849,7 +66873,7 @@ var render = function () {
                     on: {
                       submit: function ($event) {
                         $event.preventDefault()
-                        return _vm.addFrom.apply(null, arguments)
+                        return _vm.updateForm.apply(null, arguments)
                       },
                     },
                   },

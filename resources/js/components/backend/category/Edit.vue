@@ -27,7 +27,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <form @submit.prevent="addFrom">
+                                <form @submit.prevent="updateForm">
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label for="name">Category Name</label>
@@ -68,21 +68,37 @@ export default {
     data() {
         return {
              form: new Form({
+                id: null,
                 name:null,
-                status: 1
+                status: null,
              })
         }
     },
 
     methods:{
         getCategory: function(){
+            const this_ = this;
             axios.get('/edit-category/'+this.$route.params.id)
             .then(function(success){
-                console.log(success)
+               this_.form.fill(success.data.success);
             })
             .catch(function(error){
                 console.log(error)
             });
+        },
+
+        updateForm:function(){
+            const this_ = this;
+            this.form.post('/update-category').then(success=>{
+                Swal.fire({
+                    icon: 'success',
+                    title: 'OK',
+                    text: 'msg',
+                });
+                this_.$router.push('/categories');
+            }).catch(error=>{
+                console.log(error);
+            })
         }
     },
 
